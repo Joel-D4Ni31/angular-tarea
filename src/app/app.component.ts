@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Product } from './model/producto.model';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,64 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+ 
+  modalRef?: BsModalRef;
+  constructor(private modalService: BsModalService) {}
+  posicionActualizar:number = 0; 
+  openModal(template: TemplateRef<any>,position :number) {
+    this.modalRef = this.modalService.show(template);
+    this.posicionActualizar=position;
+  }
+  openModal1(template1: TemplateRef<any>,position :number) {
+    this.modalRef = this.modalService.show(template1);
+    //this.posicionActualizar=position;
+  }
+
+  d_descripcion: string="";
+  d_ruta: string ="";
+  d_nombre: string ="";
+  d_porcentaje: string ="";
+  d_estado: string ="";
+
+
   title = 'angular-tarea';
+
+  products: Product[] = [{
+    name: "parquet",
+    price: 28,
+    image: "https://media.istockphoto.com/photos/sample-of-wood-chipboard-wooden-laminate-veneer-material-for-interior-picture-id1135678299?b=1&k=20&m=1135678299&s=612x612&w=0&h=JVmRpRls_0Pq9f5GT2EPtmWXbzlLMXGlKX6L4YOuKU8=",
+    description: "Paquete de Parquet  x24 unidades",
+    porcentaje: "100%",
+    estado: "Entregado"
+  },
+  {
+    name: "parquet",
+    price: 28,
+    image: "https://media.istockphoto.com/photos/sample-of-wood-chipboard-wooden-laminate-veneer-material-for-interior-picture-id1135678299?b=1&k=20&m=1135678299&s=612x612&w=0&h=JVmRpRls_0Pq9f5GT2EPtmWXbzlLMXGlKX6L4YOuKU8=",
+    description: "Paquete de Parquet  x24 unidades",
+    porcentaje: "100%",
+    estado: "Entregado"
+  }
+];
+  verComprobante(): void  {
+
+  } 
+  actComprobante(): void{
+    const replace: Product ={
+      name: this.d_nombre,
+      price: 28,
+      image: this.d_ruta,
+      description: this.d_descripcion,
+      porcentaje: this.d_porcentaje,
+      estado: this.d_estado
+    }
+    this.products.splice(this.posicionActualizar,1,replace);
+    this.d_descripcion="";
+    this.d_ruta="";
+    this.d_nombre="";
+    this.d_porcentaje="";
+    this.d_estado="";
+    console.log(this.d_descripcion)
+    console.log(this.products);
+  }
 }
