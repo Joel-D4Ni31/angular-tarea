@@ -11,14 +11,26 @@ export class AppComponent {
  
   modalRef?: BsModalRef;
   constructor(private modalService: BsModalService) {}
-  posicionActualizar:number = 0; 
+  posicionActualizar:number = 0;
+  posicionVer:number =0;
   openModal(template: TemplateRef<any>,position :number) {
     this.modalRef = this.modalService.show(template);
     this.posicionActualizar=position;
+    this.d_descripcion=this.products[this.posicionActualizar].description;
+    this.d_ruta=this.products[this.posicionActualizar].image;
+    this.d_nombre=this.products[this.posicionActualizar].name;
+    this.d_porcentaje=this.products[this.posicionActualizar].porcentaje;
+    this.d_estado=this.products[this.posicionActualizar].estado;
   }
   openModal1(template1: TemplateRef<any>,position :number) {
     this.modalRef = this.modalService.show(template1);
-    //this.posicionActualizar=position;
+    this.posicionVer=position;
+    this.d_descripcion=this.products[this.posicionVer].description;
+    this.d_ruta=this.products[this.posicionVer].image;
+    this.d_nombre=this.products[this.posicionVer].name;
+    this.d_porcentaje=this.products[this.posicionVer].porcentaje;
+    this.d_estado=this.products[this.posicionVer].estado;
+    this.d_price=this.products[this.posicionVer].price;
   }
 
   d_descripcion: string="";
@@ -26,6 +38,7 @@ export class AppComponent {
   d_nombre: string ="";
   d_porcentaje: string ="";
   d_estado: string ="";
+  d_price: number = 0;
 
 
   title = 'angular-tarea';
@@ -47,11 +60,10 @@ export class AppComponent {
     estado: "Entregado"
   }
 ];
-  verComprobante(): void  {
 
-  } 
   actComprobante(): void{
-    const replace: Product ={
+    
+    const replace: any ={
       name: this.d_nombre,
       price: 28,
       image: this.d_ruta,
